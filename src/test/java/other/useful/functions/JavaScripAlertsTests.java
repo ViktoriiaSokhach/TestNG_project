@@ -35,6 +35,47 @@ public class JavaScripAlertsTests {
         assertEquals(alertText, "I am a JS Alert");
     }
 
+    @Test
+    public void javaScriptAcceptAlertTest() {
+
+        JavaScriptAlertsPage javaScriptAlertsPage = new JavaScriptAlertsPage(driver);
+        javaScriptAlertsPage.clickOnJSAlert();
+
+        driver.switchTo().alert().accept();
+
+        String result = javaScriptAlertsPage.resultAcceptAlertMessage();
+
+        assertEquals(result, "You successfuly clicked an alert");
+    }
+
+    @Test
+    public void javaScriptAlertConfirmTest() {
+        JavaScriptAlertsPage javaScriptAlertsPage = new JavaScriptAlertsPage(driver);
+        javaScriptAlertsPage.clickOnJSConfirm();
+        driver.switchTo().alert().accept();
+        String result = javaScriptAlertsPage.resultAcceptAlertMessage();
+        assertEquals(result, "You clicked: Ok");
+
+        javaScriptAlertsPage.clickOnJSConfirm();
+        driver.switchTo().alert().dismiss();
+        result = javaScriptAlertsPage.resultAcceptAlertMessage();
+        assertEquals(result, "You clicked: Cancel");
+    }
+
+    @Test
+    public void javaScriptAlertPromptTest() {
+        JavaScriptAlertsPage javaScriptAlertsPage = new JavaScriptAlertsPage(driver);
+        javaScriptAlertsPage.clickOnJSPrompt();
+
+        String typedText = "Selenium is cool";
+
+        Alert alert = driver.switchTo().alert();
+        alert.sendKeys(typedText);
+        alert.accept();
+        String result = javaScriptAlertsPage.resultAcceptAlertMessage();
+
+        assertEquals(result, "You entered: " + typedText);
+    }
 
     @AfterMethod
     public void afterTest() {

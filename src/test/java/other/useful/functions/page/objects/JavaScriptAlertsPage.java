@@ -17,6 +17,9 @@ public class JavaScriptAlertsPage {
     @FindBy(xpath = "//ul/li[3]/button")
     private WebElement clickForJSPromptButton;
 
+    @FindBy(css = "#result")
+    private WebElement resultOfAcceptAllert;
+
     public JavaScriptAlertsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -31,5 +34,10 @@ public class JavaScriptAlertsPage {
 
     public void clickOnJSPrompt() {
         clickForJSPromptButton.click();
+    }
+
+    public String resultAcceptAlertMessage() {
+        String result = resultOfAcceptAllert.getText();
+        return result;
     }
 }
